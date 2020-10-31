@@ -1,0 +1,29 @@
+{
+  "name": "GitHub Stories",
+  "version": "0.1",
+  "description": "Stories on GitHub",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/"
+      ],
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ],
+  "icons": {},
+  "manifest_version": 2
+}
