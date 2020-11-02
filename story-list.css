@@ -1,0 +1,39 @@
+.stories-list-wrapper {
+  display: grid;
+}
+
+.stories-list {
+  overflow-x: scroll;
+  max-height: 90.4px;
+}
+
+.stories-list::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+.user-story {
+  margin-right: 15px;
+  text-align: center;
+  width: 64px;
+  float: left;
+}
+
+.user-story button {
+  background: 0;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.user-story .user-story-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+img.user-story-img {
+  border-radius: 50%;
+}

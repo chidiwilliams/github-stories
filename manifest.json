@@ -21,6 +21,9 @@
       ],
       "js": [
         "content-script.js"
+      ],
+      "css": [
+        "story-list.css"
       ]
     }
   ],
