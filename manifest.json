@@ -23,7 +23,8 @@
         "content-script.js"
       ],
       "css": [
-        "story-list.css"
+        "story-list.css",
+        "story-view.css"
       ]
     }
   ],
