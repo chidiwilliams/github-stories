@@ -133,29 +133,36 @@ function getSingleStoryView({ story }) {
   return storyViewWrapperElem;
 }
 
-// <div class="story-view-wrapper">
-// <div class="story-view">
-// <div class="story-view-user">
-//   <img
-//     src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
-//     class="story-view-user-img"
-//     alt="ahkohd"
-//   />
-//   <a href="https://github.com/ahkohd" class="story-view-user-name"
-//     >ahkohd</a
-//   >
-// </div>
 
-// <div class="story-view-content">
-//   <div class="story-view-content-text">
-//     <div class="story-view-content-action">starred</div>
-//     <div class="story-view-content-object">
-//       <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
+// function displayStoryView(){
+
+//   return `
+//   <div class="story-view-wrapper">
+//     <div class="story-view">
+//     <div class="story-view-user">
+//       <img
+//         src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
+//         class="story-view-user-img"
+//         alt="ahkohd"
+//       />
+//       <a href="https://github.com/ahkohd" class="story-view-user-name"
+//         >ahkohd</a
+//       >
 //     </div>
-//   </div>
 
-//   <button class="story-view-prev"><</button>
-//   <button class="story-view-next">></button>
-// </div>
-// </div>
-// </div>
+//     <div class="story-view-content">
+//       <div class="story-view-content-text">
+//         <div class="story-view-content-action">starred</div>
+//         <div class="story-view-content-object">
+//           <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
+//         </div>
+//       </div>
+
+//       <button class="story-view-prev"><</button>
+//       <button class="story-view-next">></button>
+//     </div>
+//     </div>
+//     </div>
+//   `
+// }
+
