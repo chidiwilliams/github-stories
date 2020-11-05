@@ -22,18 +22,20 @@ const handle = setInterval(() => {
   stories = Array.prototype.slice
     .call(dashboardCards)
     .filter((element) => element.nodeName === 'DIV')
-    .map((element) => ({
-      userImageURL: element.querySelector('.avatar.avatar-user').src,
-      userName: element.querySelector('a[data-hovercard-type="user"].text-bold')
-        .textContent,
-      action: element
-        .querySelector('div.d-flex.flex-items-baseline')
-        .textContent.split('\n')
-        .filter((str) => str.trim() !== '')
-        .map((str) => str.trim())[1],
-      repoOrUserName: element.querySelector('div.Box a.text-bold').textContent,
-      repoOrUserURL: element.querySelector('div.Box a.text-bold').href,
-    }));
+    .map((element) => {
+      const [userName, action, repoOrUserName] = element.textContent
+        .split('\n')
+        .map((str) => str.trim())
+        .filter((str) => str !== '');
+
+      return {
+        userImageURL: element.querySelector('.avatar.avatar-user').src,
+        userName,
+        action,
+        repoOrUserName,
+        repoOrUserURL: getGithubURL(repoOrUserName),
+      };
+    });
 
   const uniqueStories = [];
   const storiesUserNames = {};
@@ -50,7 +52,6 @@ const handle = setInterval(() => {
   const storyListView = getStoryListView({ stories: uniqueStories });
   document.querySelector('.news').prepend(getStoryViewer());
   document.querySelector('.news').prepend(storyListView);
-
 }, 1000);
 
 function onClickStoryBtn(event) {
@@ -60,7 +61,7 @@ function onClickStoryBtn(event) {
   console.log('open story ID', storyID);
 
   const story = stories[storyID];
-  updateSingleStoryView( story);
+  updateSingleStoryView(story);
 }
 
 function getStoryListView({ stories }) {
@@ -103,7 +104,11 @@ function getStoryListView({ stories }) {
   return storyListWrapperElem;
 }
 
-function getStoryViewer(){
+function getGithubURL(resource) {
+  return `https://github.com/${resource}`;
+}
+
+function getStoryViewer() {
   const storyViewWrapperElem = document.createElement('div');
   storyViewWrapperElem.classList.add('story-view-wrapper');
   storyViewWrapperElem.classList.add('hidden');
@@ -116,21 +121,21 @@ function getStoryViewer(){
       class="story-view-user-img"
       alt="ahkohd"
     />
-    <a href="https://github.com/ahkohd" class="story-view-user-name"
+    <a href="${getGithubURL('ahkohd')}" class="story-view-user-name"
       >ahkohd</a
     >
   </div>
   <div class="story-view-user-action">
     x close
   </div>
-    
+
   </div>
 
   <div class="story-view-content">
     <div class="story-view-content-text">
       <div class="story-view-content-action">starred</div>
       <div class="story-view-content-object">
-        <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
+        <a href="${getGithubURL('vuejs/docs-next')}">vuejs/docs-next</a>
       </div>
     </div>
 
@@ -138,35 +143,37 @@ function getStoryViewer(){
     <button class="story-view-next">></button>
   </div>
   </div>
-  `
+  `;
 
-  const storyViewerCloseBtn = storyViewWrapperElem.querySelector('.story-view-user-action');
+  const storyViewerCloseBtn = storyViewWrapperElem.querySelector(
+    '.story-view-user-action',
+  );
   storyViewerCloseBtn.addEventListener('click', handleCloseStoryViewerBtnClick);
 
-  return storyViewWrapperElem
+  return storyViewWrapperElem;
 }
 
-
-function handleCloseStoryViewerBtnClick(event){
-  document.querySelector('.story-view-wrapper').classList.add("hidden");
+function handleCloseStoryViewerBtnClick() {
+  document.querySelector('.story-view-wrapper').classList.add('hidden');
 }
 
-
-function updateSingleStoryView(story){
+function updateSingleStoryView(story) {
   const storyViewer = document.querySelector('.story-view-wrapper');
-  const image = storyViewer.querySelector('.story-view-user-img')
-  const name = storyViewer.querySelector('.story-view-user-name')
-  const contentAction = storyViewer.querySelector('.story-view-content-action')
-  const contentObject = storyViewer.querySelector('.story-view-content-object').firstElementChild
+
+  const image = storyViewer.querySelector('.story-view-user-img');
   image.src = story.userImageURL;
+
+  const name = storyViewer.querySelector('.story-view-user-name');
+  name.href = getGithubURL(story.userName);
   name.innerText = story.userName;
-  name.href = "https://github.com/" +story.userName
+
+  const contentAction = storyViewer.querySelector('.story-view-content-action');
   contentAction.innerText = story.action;
-  contentObject.innerText = story.repoOrUserName
-  contentObject.href = story.repoOrUserURL
 
-  document.querySelector('.story-view-wrapper').classList.remove("hidden")
+  const contentObject = storyViewer.querySelector('.story-view-content-object')
+    .firstElementChild;
+  contentObject.innerText = story.repoOrUserName;
+  contentObject.href = story.repoOrUserURL;
+
+  document.querySelector('.story-view-wrapper').classList.remove('hidden');
 }
-
-
-
