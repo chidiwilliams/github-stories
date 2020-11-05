@@ -1,9 +1,20 @@
+.story-view-wrapper{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #222;
+  z-index: 2;
+}
+
 .story-view {
   width: 600px;
   margin: auto;
   color: #ffffff;
   height: calc(100vh - 60px);
   padding: 40px 0 20px;
+  
 }
 
 .story-view-user {
@@ -11,8 +22,18 @@
   align-items: center;
   font-weight: bold;
   margin-bottom: 20px;
+  justify-content: space-between;
 }
 
+.story-view-user-detail{
+  display: flex;
+  align-items: center;
+
+}
+
+.story-view-user-action{
+  cursor: pointer;
+}
 .story-view-user-name {
   color: #ffffff;
 }
@@ -60,4 +81,9 @@ button.story-view-prev {
 
 button.story-view-next {
   right: -60px;
+}
+
+
+.hidden{
+  display: none;
 }

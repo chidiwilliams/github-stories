@@ -48,7 +48,9 @@ const handle = setInterval(() => {
   });
 
   const storyListView = getStoryListView({ stories: uniqueStories });
+  document.querySelector('.news').prepend(getStoryViewer());
   document.querySelector('.news').prepend(storyListView);
+
 }, 1000);
 
 function onClickStoryBtn(event) {
@@ -58,7 +60,7 @@ function onClickStoryBtn(event) {
   console.log('open story ID', storyID);
 
   const story = stories[storyID];
-  const view = getSingleStoryView({ story });
+  updateSingleStoryView( story);
 }
 
 function getStoryListView({ stories }) {
@@ -101,68 +103,70 @@ function getStoryListView({ stories }) {
   return storyListWrapperElem;
 }
 
-function getSingleStoryView({ story }) {
+function getStoryViewer(){
   const storyViewWrapperElem = document.createElement('div');
   storyViewWrapperElem.classList.add('story-view-wrapper');
+  storyViewWrapperElem.classList.add('hidden');
+  storyViewWrapperElem.innerHTML = `
+  <div class="story-view">
+  <div class="story-view-user">
+  <div class="story-view-user-detail">
+  <img
+      src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
+      class="story-view-user-img"
+      alt="ahkohd"
+    />
+    <a href="https://github.com/ahkohd" class="story-view-user-name"
+      >ahkohd</a
+    >
+  </div>
+  <div class="story-view-user-action">
+    x close
+  </div>
+    
+  </div>
 
-  const storyViewElem = document.createElement('div');
-  storyViewElem.classList.add('story-view');
+  <div class="story-view-content">
+    <div class="story-view-content-text">
+      <div class="story-view-content-action">starred</div>
+      <div class="story-view-content-object">
+        <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
+      </div>
+    </div>
 
-  {
-    const storyViewUserElem = document.createElement('div');
-    storyViewUserElem.classList.add('story-view-user');
+    <button class="story-view-prev"><</button>
+    <button class="story-view-next">></button>
+  </div>
+  </div>
+  `
 
-    {
-      const storyViewUserImgElem = document.createElement('img');
-      storyViewUserImgElem.classList.add('story-view-user-img');
-      storyViewUserImgElem.src = story.userImageURL;
-      storyViewUserImgElem.alt = story.userName;
-      storyViewUserElem.appendChild(storyViewUserImgElem);
-    }
+  const storyViewerCloseBtn = storyViewWrapperElem.querySelector('.story-view-user-action');
+  storyViewerCloseBtn.addEventListener('click', handleCloseStoryViewerBtnClick);
 
-    {
-      const storyViewUserNameElem = document.createElement('a');
-      storyViewUserNameElem.href = `https://github.com/${story.userName}`;
-      storyViewUserElem.appendChild(storyViewUserNameElem);
-    }
-
-    storyViewElem.appendChild(storyViewUserElem);
-  }
-
-  storyViewWrapperElem.appendChild(storyViewElem);
-  return storyViewWrapperElem;
+  return storyViewWrapperElem
 }
 
 
-// function displayStoryView(){
+function handleCloseStoryViewerBtnClick(event){
+  document.querySelector('.story-view-wrapper').classList.add("hidden");
+}
 
-//   return `
-//   <div class="story-view-wrapper">
-//     <div class="story-view">
-//     <div class="story-view-user">
-//       <img
-//         src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
-//         class="story-view-user-img"
-//         alt="ahkohd"
-//       />
-//       <a href="https://github.com/ahkohd" class="story-view-user-name"
-//         >ahkohd</a
-//       >
-//     </div>
 
-//     <div class="story-view-content">
-//       <div class="story-view-content-text">
-//         <div class="story-view-content-action">starred</div>
-//         <div class="story-view-content-object">
-//           <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
-//         </div>
-//       </div>
+function updateSingleStoryView(story){
+  const storyViewer = document.querySelector('.story-view-wrapper');
+  const image = storyViewer.querySelector('.story-view-user-img')
+  const name = storyViewer.querySelector('.story-view-user-name')
+  const contentAction = storyViewer.querySelector('.story-view-content-action')
+  const contentObject = storyViewer.querySelector('.story-view-content-object').firstElementChild
+  image.src = story.userImageURL;
+  name.innerText = story.userName;
+  name.href = "https://github.com/" +story.userName
+  contentAction.innerText = story.action;
+  contentObject.innerText = story.repoOrUserName
+  contentObject.href = story.repoOrUserURL
 
-//       <button class="story-view-prev"><</button>
-//       <button class="story-view-next">></button>
-//     </div>
-//     </div>
-//     </div>
-//   `
-// }
+  document.querySelector('.story-view-wrapper').classList.remove("hidden")
+}
+
+
 
