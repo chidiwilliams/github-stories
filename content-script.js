@@ -91,7 +91,7 @@ function getStoryListView({ stories }) {
 
     {
       const userStoryNameElem = document.createElement('div');
-      userStoryNameElem.classList.add('user-story-name');
+      userStoryNameElem.classList.add('user-story-name', 'f6');
       userStoryNameElem.innerText = story.userName;
       userStoryElem.appendChild(userStoryNameElem);
     }
