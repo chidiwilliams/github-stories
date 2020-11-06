@@ -20,21 +20,12 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 
 ## TODO
 
-- Story list view:
-
-  - Add circle around profile pictures. Like [this](https://user-images.githubusercontent.com/17879672/98292602-3db4e280-1fad-11eb-8398-0397889399f3.png).
-  - Add css color to profile pictures, with already viewed stories.
-  - Increase tries++ to 25-30 for the sake of users with poor network connection. 
-  - Display button to reload stories, if tries++ has been exceeded. 
-
 - Single story view:
 
   - Next and previous buttons should show next and previous stories. (Falomo)
   - Timer and countdown. Should auto-switch to next story after 5 secs. (Falomo?)
   - Improve the design of the view. Add colors, images, etc. (Chidi)
   - Maintain aspect ratio of view when resizing like Instagram.
-  - Improve Mobile responsiveness. 
-  - Display nested stories of each unique user. 
+  - Improve Mobile responsiveness.
+  - Display nested stories of each unique user.
   - In the story view, enable both the user profile picture and user actions (e.g starred repo/ followed user) to be clickable
-  - On reaching the last user story, trigger load more in background to fetch and pre-populate/append stories data and proceed to the next.
-  
