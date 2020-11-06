@@ -99,23 +99,20 @@ function getGithubURL(resource) {
 function getStoryViewer() {
   const storyViewWrapperElem = document.createElement('div');
   storyViewWrapperElem.classList.add('story-view-wrapper', 'hidden');
-  storyViewWrapperElem.innerHTML = `
-  <div class="story-view">
+  storyViewWrapperElem.innerHTML = `<div class="story-view">
   <div class="story-view-user">
-  <div class="story-view-user-detail">
-  <img
-      src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
-      class="story-view-user-img"
-      alt="ahkohd"
-    />
-    <a href="${getGithubURL('ahkohd')}" class="story-view-user-name"
-      >ahkohd</a
-    >
-  </div>
-  <div class="story-view-user-action">
-    x close
-  </div>
-
+    <div class="story-view-user-detail">
+      <a class="story-view-user-img-link">
+        <img
+          src=""
+          class="story-view-user-img"
+          alt=""
+        />
+      </a>
+      <a class="story-view-user-name"
+        ></a
+      >
+    </div>
   </div>
 
   <div class="story-view-content">
@@ -128,9 +125,21 @@ function getStoryViewer() {
 
     <button class="story-view-prev"><</button>
     <button class="story-view-next">></button>
-    </div>
-    </div>
-    `;
+    <button class="story-view-user-action">
+      <svg
+        height="20px"
+        viewBox="0 0 329.26933 329"
+        width="20px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+        ></path>
+      </svg>
+    </button>
+  </div>
+</div>
+`;
 
   const storyViewerCloseBtn = storyViewWrapperElem.querySelector(
     '.story-view-user-action',
@@ -147,8 +156,12 @@ function handleCloseStoryViewerBtnClick() {
 function updateSingleStoryView(story) {
   const storyViewer = document.querySelector('.story-view-wrapper');
 
+  const imageLink = storyViewer.querySelector('.story-view-user-img-link');
+  imageLink.href = getGithubURL(story.userName);
+
   const image = storyViewer.querySelector('.story-view-user-img');
   image.src = story.userImageURL;
+  image.setAttribute('alt', story.userName);
 
   const name = storyViewer.querySelector('.story-view-user-name');
   name.href = getGithubURL(story.userName);
