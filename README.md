@@ -2,6 +2,10 @@
 
 Google Chrome Extension that adds stories to your GitHub dashboard.
 
+## How to Use
+
+[Install the extension](#installation) and visit [github.com](https://github.com). That's all! 😊
+
 ## Installation
 
 1. Download this repository. Clone / download ZIP and unzip on your computer.
@@ -25,3 +29,4 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
   - Next and previous buttons should show next and previous stories. (Falomo)
   - Timer and countdown. Should auto-switch to next story after 5 secs. (Falomo?)
   - Improve the design of the view. Add colors, images, etc. (Chidi)
+  - Maintain aspect ratio of view when resizing like Instagram.
