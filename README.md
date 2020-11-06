@@ -30,6 +30,4 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
   - Timer and countdown. Should auto-switch to next story after 5 secs. (Falomo?)
   - Improve the design of the view. Add colors, images, etc. (Chidi)
   - Maintain aspect ratio of view when resizing like Instagram.
-  - Improve Mobile responsiveness.
   - Display nested stories of each unique user.
-  - In the story view, enable both the user profile picture and user actions (e.g starred repo/ followed user) to be clickable
