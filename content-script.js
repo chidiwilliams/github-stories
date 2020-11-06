@@ -78,22 +78,12 @@ function getStoryListView({ stories }) {
 
     {
       const btnElem = document.createElement('button');
-      {
-        const imgElem = document.createElement('img');
-        imgElem.src = story.userImageURL;
-        imgElem.alt = story.userName;
-        imgElem.classList.add('user-story-img');
-        btnElem.appendChild(imgElem);
-      }
+      btnElem.innerHTML = `<div class="img-wrapper">
+  <img class="user-story-img" src="${story.userImageURL}" alt="${story.userName}" />
+</div>
+<div class="user-story-name f6">${story.userName}</div>`;
       btnElem.addEventListener('click', onClickStoryBtn);
       userStoryElem.appendChild(btnElem);
-    }
-
-    {
-      const userStoryNameElem = document.createElement('div');
-      userStoryNameElem.classList.add('user-story-name', 'f6');
-      userStoryNameElem.innerText = story.userName;
-      userStoryElem.appendChild(userStoryNameElem);
     }
 
     storyListElement.appendChild(userStoryElem);
@@ -110,8 +100,7 @@ function getGithubURL(resource) {
 
 function getStoryViewer() {
   const storyViewWrapperElem = document.createElement('div');
-  storyViewWrapperElem.classList.add('story-view-wrapper');
-  storyViewWrapperElem.classList.add('hidden');
+  storyViewWrapperElem.classList.add('story-view-wrapper', 'hidden');
   storyViewWrapperElem.innerHTML = `
   <div class="story-view">
   <div class="story-view-user">
@@ -141,9 +130,9 @@ function getStoryViewer() {
 
     <button class="story-view-prev"><</button>
     <button class="story-view-next">></button>
-  </div>
-  </div>
-  `;
+    </div>
+    </div>
+    `;
 
   const storyViewerCloseBtn = storyViewWrapperElem.querySelector(
     '.story-view-user-action',
