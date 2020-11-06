@@ -9,12 +9,10 @@ const handle = setInterval(() => {
       .getElementById('dashboard')
       .querySelector('div[data-repository-hovercards-enabled]').children;
   } catch (error) {
-    if (tries++ === 10) {
-      console.log('dashboard did not load');
+    if (tries++ === 20) {
       clearInterval(handle);
       return;
     }
-    console.log('dashboard not loaded, retrying...');
     return;
   }
 
