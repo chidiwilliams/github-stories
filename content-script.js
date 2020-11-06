@@ -1,6 +1,7 @@
 let tries = 0;
 
 let stories;
+let storyViewOpen = false;
 
 const handle = setInterval(() => {
   let dashboardCards;
@@ -146,11 +147,24 @@ function getStoryViewer() {
   );
   storyViewerCloseBtn.addEventListener('click', handleCloseStoryViewerBtnClick);
 
+  document.addEventListener('keyup', onPressEscKey);
+
   return storyViewWrapperElem;
 }
 
+function onPressEscKey(event) {
+  if (storyViewOpen && event.key === 'Escape') {
+    closeStoryView();
+  }
+}
+
 function handleCloseStoryViewerBtnClick() {
+  closeStoryView();
+}
+
+function closeStoryView() {
   document.querySelector('.story-view-wrapper').classList.add('hidden');
+  storyViewOpen = false;
 }
 
 function updateSingleStoryView(story) {
@@ -176,4 +190,5 @@ function updateSingleStoryView(story) {
   contentObject.href = story.repoOrUserURL;
 
   document.querySelector('.story-view-wrapper').classList.remove('hidden');
+  storyViewOpen = true;
 }
