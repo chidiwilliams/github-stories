@@ -8,7 +8,7 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 
 ## Installation
 
-1. Download this repository. Clone / download ZIP and unzip on your computer.
+1. Download this repository. Download [the project](https://github.com/chidiwilliams/github-stories/archive/master.zip) and unzip on your computer.
 
 2. Visit `chrome://extensions` (or click Menu -> Tools -> Extensions).
 
@@ -17,3 +17,7 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 4. Click on the "Load unpacked" button in the top-left corner.
 
 5. Select the downloaded folder.
+
+## Disclaimer
+
+**Free, fun side project. Not affiliated with GitHub.**

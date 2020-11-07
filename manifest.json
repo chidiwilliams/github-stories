@@ -28,6 +28,8 @@
       ]
     }
   ],
-  "icons": {},
+  "icons": {
+    "128": "github-stories.png"
+  },
   "manifest_version": 2
 }
