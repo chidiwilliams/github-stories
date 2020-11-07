@@ -8,7 +8,9 @@ const handle = setInterval(() => {
   try {
     dashboardCards = document
       .getElementById('dashboard')
-      .querySelector('div[data-repository-hovercards-enabled]').children;
+      .querySelector(
+        'div[data-repository-hovercards-enabled]:not(.js-recent-activity-container)',
+      ).children;
   } catch (error) {
     if (tries++ === 20) {
       clearInterval(handle);
