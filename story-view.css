@@ -94,3 +94,11 @@ button.story-view-next {
 .hidden {
   display: none;
 }
+
+.ex-progress-bar{
+  display: flex;
+}
+
+.ex-progress-bar > * {
+  flex-grow: 1;
+}
