@@ -31,6 +31,7 @@
 button.story-view-user-action {
   cursor: pointer;
   position: absolute;
+  top: 0;
   right: -35px;
   background: 0;
   border: 0;
@@ -54,17 +55,18 @@ button.story-view-user-action {
 .story-view-content {
   height: calc(100% - 70px);
   background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  padding: 10px;
 }
 
 .story-view-content-text {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 50px;
+  font-size: 25px;
   color: #111111;
+  width: 100%;
 }
 
 button.story-view-prev,
