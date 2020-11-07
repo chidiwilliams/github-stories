@@ -117,8 +117,13 @@ button.story-view-close-btn {
 }
 
 .story-view-content[theme='9'] {
-  background-color: #ffdee9;
-  background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
 }
 
 .story-view-content[theme='10'] {
