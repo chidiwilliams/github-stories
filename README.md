@@ -1,6 +1,8 @@
 # GitHub Stories
 
-Google Chrome Extension that adds stories to your GitHub dashboard.
+Add stories to your GitHub dashboard.
+
+![GitHub Stories Demo](./github-stories.gif)
 
 ## How to Use
 
