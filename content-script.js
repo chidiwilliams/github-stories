@@ -59,7 +59,7 @@ const handle = setInterval(() => {
     .filter(
       (story) =>
         story.action !== 'created a' &&
-        story.action !== 'and' &&
+        !story.action.includes('and') &&
         !story.repoOrUserName.includes('repositories'),
     );
 
