@@ -8,7 +8,8 @@ let automaticSliderIntervalId = null;
 
 const AUTOMATIC_SCROLL_DELAY = 5000;
 const PROGRESS_BAR_UPDATE_DELAY = 100;
-const UPDATE_PROGRESS_BAR_VALUE = 100 / ((AUTOMATIC_SCROLL_DELAY / PROGRESS_BAR_UPDATE_DELAY) - 5) ;
+const UPDATE_PROGRESS_BAR_VALUE =
+  100 / (AUTOMATIC_SCROLL_DELAY / PROGRESS_BAR_UPDATE_DELAY - 5);
 let storyViewOpen = false;
 
 const handle = setInterval(() => {
@@ -50,16 +51,15 @@ const handle = setInterval(() => {
   stories.forEach((story) => {
     let index = 0;
     const belongsToBatch = batchStories.some((batchStory, idx) => {
-      if(batchStory[0].userName === story.userName)
-      {
+      if (batchStory[0].userName === story.userName) {
         index = idx;
-        return true
+        return true;
       }
-    })
-    if(belongsToBatch){
-      batchStories[index].push(story)
-    }else{
-      batchStories.push([ story ])  
+    });
+    if (belongsToBatch) {
+      batchStories[index].push(story);
+    } else {
+      batchStories.push([story]);
     }
   });
 
@@ -74,7 +74,6 @@ function onClickStoryBtn(event) {
   const path = event.path;
   const buttonElem = path.find((element) => element.className === 'user-story');
   const storyID = buttonElem.getAttribute('story-id');
-
 
   const batchStory = storyList[storyID];
   updateSingleStoryView(batchStory[0], storyID, 0);
@@ -136,7 +135,7 @@ function getStoryViewer() {
   </div>
 
   <div class = "ex-progress-bar">
-   
+
   </div>
   <div class="story-view-content">
     <div class="story-view-content-text">
@@ -164,9 +163,15 @@ function getStoryViewer() {
 </div>
 `;
 
-  const storyViewerCloseBtn = storyViewWrapperElem.querySelector('.story-view-user-action');
-  const storyViewPrevBtn = storyViewWrapperElem.querySelector('.story-view-prev');
-  const storyViewNextBtn = storyViewWrapperElem.querySelector('.story-view-next');
+  const storyViewerCloseBtn = storyViewWrapperElem.querySelector(
+    '.story-view-user-action',
+  );
+  const storyViewPrevBtn = storyViewWrapperElem.querySelector(
+    '.story-view-prev',
+  );
+  const storyViewNextBtn = storyViewWrapperElem.querySelector(
+    '.story-view-next',
+  );
 
   storyViewerCloseBtn.addEventListener('click', handleCloseStoryViewerBtnClick);
   storyViewPrevBtn.addEventListener('click', handleStoryViewPrevBtnClick);
@@ -183,52 +188,44 @@ function onPressEscKey(event) {
   }
 }
 
-function moveSlide(story, storyID, storyIndex){
-  updateSingleStoryView(story, storyID, storyIndex)
+function moveSlide(story, storyID, storyIndex) {
+  updateSingleStoryView(story, storyID, storyIndex);
 }
 
-function moveToNextSlide(storyID, storyIndex){
-  if(storyIndex + 1 >= storyList[storyID].length){
-    storyID++
+function moveToNextSlide(storyID, storyIndex) {
+  if (storyIndex + 1 >= storyList[storyID].length) {
+    storyID++;
     storyIndex = 0;
-  }
-  else  
-    storyIndex++
+  } else storyIndex++;
 
-  if(storyID >= storyList.length)
-    return 
-  
-  moveSlide(storyList[storyID][storyIndex], storyID, storyIndex)
+  if (storyID >= storyList.length) return;
+
+  moveSlide(storyList[storyID][storyIndex], storyID, storyIndex);
 }
-function moveToPrevSlide(storyID, storyIndex){
-  if(storyIndex - 1 < 0){
-    storyID--
-    storyIndex = 0
-  }
-  else  
-    storyIndex--
-  if(storyID < 0  )
-    return 
+function moveToPrevSlide(storyID, storyIndex) {
+  if (storyIndex - 1 < 0) {
+    storyID--;
+    storyIndex = 0;
+  } else storyIndex--;
+  if (storyID < 0) return;
 
-  moveSlide(storyList[storyID][storyIndex], storyID, storyIndex)
+  moveSlide(storyList[storyID][storyIndex], storyID, storyIndex);
 }
 
-
-function handleStoryViewNextBtnClick(event){
+function handleStoryViewNextBtnClick() {
   const storyViewer = document.querySelector('.story-view-wrapper');
   let storyID = parseInt(storyViewer.getAttribute('story-id'));
   let storyIndex = parseInt(storyViewer.getAttribute('story-index'));
 
-  moveToNextSlide(storyID, storyIndex)
+  moveToNextSlide(storyID, storyIndex);
 }
 
-
-function handleStoryViewPrevBtnClick(event){
+function handleStoryViewPrevBtnClick() {
   const storyViewer = document.querySelector('.story-view-wrapper');
   let storyID = storyViewer.getAttribute('story-id');
   let storyIndex = storyViewer.getAttribute('story-index');
 
-   moveToPrevSlide(storyID, storyIndex)
+  moveToPrevSlide(storyID, storyIndex);
 }
 
 function handleCloseStoryViewerBtnClick() {
@@ -237,39 +234,40 @@ function handleCloseStoryViewerBtnClick() {
 
 function closeStoryView() {
   document.querySelector('.story-view-wrapper').classList.add('hidden');
-  clearInterval(storyViewIntervalId)
-  clearInterval(progressBarIntervalId)
+  clearInterval(storyViewIntervalId);
+  clearInterval(progressBarIntervalId);
   storyViewOpen = false;
 }
 
-
-function automaticSlideScrolling(){
-  if(storyViewIntervalId)
-    clearInterval(storyViewIntervalId)
-  if(progressBarIntervalId)
-    clearInterval(progressBarIntervalId)
-  handleStoryViewNextBtnClick()
-
+function automaticSlideScrolling() {
+  if (storyViewIntervalId) clearInterval(storyViewIntervalId);
+  if (progressBarIntervalId) clearInterval(progressBarIntervalId);
+  handleStoryViewNextBtnClick();
 }
 
-function updateProgressBarProgress(){
-  const progressBar = document.querySelector('.ex-progress-bar').firstElementChild;
-  const currValue = parseInt(progressBar.getAttribute("value"))
-  progressBar.setAttribute("value", currValue + UPDATE_PROGRESS_BAR_VALUE)
+function updateProgressBarProgress() {
+  const progressBar = document.querySelector('.ex-progress-bar')
+    .firstElementChild;
+  const currValue = parseInt(progressBar.getAttribute('value'));
+  progressBar.setAttribute(
+    'value',
+    String(currValue + UPDATE_PROGRESS_BAR_VALUE),
+  );
 }
 
-function updateProgressBar(){
+function updateProgressBar() {
   let initialValue = 0;
   let progressBarContainer = document.querySelector('.ex-progress-bar');
   progressBarContainer.innerHTML = `<progress id="file" value="${initialValue}" max="100"> </progress>`;
 
-  if(progressBarIntervalId)
-    clearInterval(progressBarIntervalId)
-  progressBarIntervalId = setInterval(updateProgressBarProgress , PROGRESS_BAR_UPDATE_DELAY)
+  if (progressBarIntervalId) clearInterval(progressBarIntervalId);
+  progressBarIntervalId = setInterval(
+    updateProgressBarProgress,
+    PROGRESS_BAR_UPDATE_DELAY,
+  );
 }
 
-
-function updateSingleStoryView(story, storyId, storyIndex){
+function updateSingleStoryView(story, storyId, storyIndex) {
   const storyViewer = document.querySelector('.story-view-wrapper');
 
   const imageLink = storyViewer.querySelector('.story-view-user-img-link');
@@ -292,18 +290,20 @@ function updateSingleStoryView(story, storyId, storyIndex){
   contentObject.href = story.repoOrUserURL;
 
   storyViewer.setAttribute('story-id', storyId);
-  storyViewer.setAttribute('story-index', storyIndex)
+  storyViewer.setAttribute('story-index', storyIndex);
 
   image.src = story.userImageURL;
   name.innerText = story.userName;
   name.href = getGithubURL(story.userName);
 
-  if(storyViewIntervalId)
-    clearInterval(storyViewIntervalId)
+  if (storyViewIntervalId) clearInterval(storyViewIntervalId);
 
-  updateProgressBar(story, storyId, storyIndex)
-  storyViewIntervalId = setInterval(automaticSlideScrolling, AUTOMATIC_SCROLL_DELAY)
+  updateProgressBar();
+  storyViewIntervalId = setInterval(
+    automaticSlideScrolling,
+    AUTOMATIC_SCROLL_DELAY,
+  );
 
-  document.querySelector('.story-view-wrapper').classList.remove("hidden")
+  document.querySelector('.story-view-wrapper').classList.remove('hidden');
   storyViewOpen = true;
 }
