@@ -185,6 +185,10 @@ button.story-view-close-btn {
   text-shadow: 1px 1px 2px #00000044;
 }
 
+.story-view-content-emoji {
+  font-size: 50px;
+}
+
 .story-view-content-text a {
   color: #ffffff;
   text-decoration: underline;

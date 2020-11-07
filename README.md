@@ -17,9 +17,3 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 4. Click on the "Load unpacked" button in the top-left corner.
 
 5. Select the downloaded folder.
-
-## TODO
-
-- Single story view:
-
-  - Add emojis

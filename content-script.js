@@ -6,6 +6,13 @@ let storyViewIntervalId = null;
 let progressBarIntervalId = null;
 let automaticSliderIntervalId = null;
 
+const emojis = {
+  starred: '⭐',
+  'pushed to': '🚀',
+  'started following': '🚶',
+  forked: '🤓',
+};
+
 const AUTOMATIC_SCROLL_DELAY = 4200;
 const PROGRESS_BAR_UPDATE_DELAY = 100;
 const UPDATE_PROGRESS_BAR_VALUE =
@@ -52,6 +59,7 @@ const handle = setInterval(() => {
     .filter(
       (story) =>
         story.action !== 'created a' &&
+        story.action !== 'and' &&
         !story.repoOrUserName.includes('repositories'),
     );
 
@@ -145,6 +153,7 @@ function getStoryViewer() {
           <a href="${getGithubURL('vuejs/docs-next')}">vuejs/docs-next</a></span
         >!
       </div>
+      <div class="story-view-content-emoji">⭐</div>
     </div>
 
     <button class="story-view-prev"><</button>
@@ -311,6 +320,9 @@ function updateSingleStoryView(story, storyId, storyIndex) {
     .firstElementChild;
   contentObject.innerText = story.repoOrUserName;
   contentObject.href = story.repoOrUserURL;
+
+  const contentEmoji = storyViewer.querySelector('.story-view-content-emoji');
+  contentEmoji.innerText = emojis[story.action] || '';
 
   storyViewer.setAttribute('story-id', storyId);
   storyViewer.setAttribute('story-index', storyIndex);
