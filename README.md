@@ -10,7 +10,7 @@ Add stories to your GitHub dashboard.
 
 ## Installation
 
-1. Download this repository. Download [the project](https://github.com/chidiwilliams/github-stories/archive/master.zip) and unzip on your computer.
+1. [Download ZIP](https://github.com/chidiwilliams/github-stories/archive/master.zip) and unzip on your computer.
 
 2. Visit `chrome://extensions` (or click Menu -> Tools -> Extensions).
 
