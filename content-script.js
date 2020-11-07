@@ -6,7 +6,7 @@ let storyViewIntervalId = null;
 let progressBarIntervalId = null;
 let automaticSliderIntervalId = null;
 
-const AUTOMATIC_SCROLL_DELAY = 3000;
+const AUTOMATIC_SCROLL_DELAY = 4200;
 const PROGRESS_BAR_UPDATE_DELAY = 100;
 const UPDATE_PROGRESS_BAR_VALUE =
   100 / (AUTOMATIC_SCROLL_DELAY / PROGRESS_BAR_UPDATE_DELAY - 5);
@@ -38,14 +38,17 @@ const handle = setInterval(() => {
         .map((str) => str.trim())
         .filter((str) => str !== '');
 
+      const themeID = Math.floor(Math.random() * 18); // 0 - 17
+
       return {
         userImageURL: element.querySelector('.avatar.avatar-user').src,
         userName,
         action,
         repoOrUserName,
         repoOrUserURL: getGithubURL(repoOrUserName),
+        themeID,
       };
-    });
+    }); // filter out created a
 
   const batchStories = [];
   stories.forEach((story) => {
@@ -122,32 +125,26 @@ function getStoryViewer() {
   <div class="story-view-user">
     <div class="story-view-user-detail">
       <a class="story-view-user-img-link">
-        <img
-          src=""
-          class="story-view-user-img"
-          alt=""
-        />
+        <img src="" class="story-view-user-img" alt="" />
       </a>
-      <a class="story-view-user-name"
-        ></a
-      >
+      <a class="story-view-user-name"></a>
     </div>
   </div>
 
-  <div class = "ex-progress-bar">
-
-  </div>
+  <div class="ex-progress-bar"></div>
   <div class="story-view-content">
     <div class="story-view-content-text">
-      <div class="story-view-content-action">starred</div>
-      <div class="story-view-content-object">
-        <a href="${getGithubURL('vuejs/docs-next')}">vuejs/docs-next</a>
+      <div>I <span class="story-view-content-action">starred</span></div>
+      <div>
+        <span class="story-view-content-object">
+          <a href="${getGithubURL('vuejs/docs-next')}">vuejs/docs-next</a></span
+        >!
       </div>
     </div>
 
     <button class="story-view-prev"><</button>
     <button class="story-view-next">></button>
-    <button class="story-view-user-action">
+    <button class="story-view-close-btn">
       <svg
         height="20px"
         viewBox="0 0 329.26933 329"
@@ -164,7 +161,7 @@ function getStoryViewer() {
 `;
 
   const storyViewerCloseBtn = storyViewWrapperElem.querySelector(
-    '.story-view-user-action',
+    '.story-view-close-btn',
   );
   const storyViewPrevBtn = storyViewWrapperElem.querySelector(
     '.story-view-prev',
@@ -298,6 +295,9 @@ function updateSingleStoryView(story, storyId, storyIndex) {
   const name = storyViewer.querySelector('.story-view-user-name');
   name.href = getGithubURL(story.userName);
   name.innerText = story.userName;
+
+  const content = storyViewer.querySelector('.story-view-content');
+  content.setAttribute('theme', String(story.themeID));
 
   const contentAction = storyViewer.querySelector('.story-view-content-action');
   contentAction.innerText = story.action;
