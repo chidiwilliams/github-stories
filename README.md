@@ -1,6 +1,6 @@
 # GitHub Stories
 
-Add stories to your GitHub dashboard.
+View stories on your GitHub dashboard.
 
 ![GitHub Stories Demo](./github-stories.gif)
 
@@ -19,6 +19,12 @@ Add stories to your GitHub dashboard.
 4. Click on the "Load unpacked" button in the top-left corner.
 
 5. Select the downloaded folder.
+
+## Frequently Asked Questions
+
+**Q: Why?**
+
+A: Why not?
 
 ## Disclaimer
 
