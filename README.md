@@ -24,8 +24,8 @@ View stories on your GitHub dashboard.
 
 **Q: Why?**
 
-A: Why not?
+Why not?
 
 ## Disclaimer
 
-**Free, fun side project. Not affiliated with GitHub.**
+Free, fun side project. Not affiliated with GitHub.
