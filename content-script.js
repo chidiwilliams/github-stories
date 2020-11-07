@@ -48,7 +48,12 @@ const handle = setInterval(() => {
         repoOrUserURL: getGithubURL(repoOrUserName),
         themeID,
       };
-    }); // filter out created a
+    })
+    .filter(
+      (story) =>
+        story.action !== 'created a' &&
+        !story.repoOrUserName.includes('repositories'),
+    );
 
   const batchStories = [];
   stories.forEach((story) => {

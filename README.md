@@ -20,10 +20,6 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 
 ## TODO
 
-- Story list view:
-
-  - Filter only supported actions.
-
 - Single story view:
 
   - Add emojis
