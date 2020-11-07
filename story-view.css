@@ -9,7 +9,6 @@
 }
 
 .story-view {
-  width: 600px;
   margin: auto;
   color: #ffffff;
   height: calc(100vh - 60px);
@@ -95,7 +94,7 @@ button.story-view-next {
   display: none;
 }
 
-.ex-progress-bar{
+.ex-progress-bar {
   display: flex;
 }
 

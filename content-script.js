@@ -6,7 +6,7 @@ let storyViewIntervalId = null;
 let progressBarIntervalId = null;
 let automaticSliderIntervalId = null;
 
-const AUTOMATIC_SCROLL_DELAY = 5000;
+const AUTOMATIC_SCROLL_DELAY = 3000;
 const PROGRESS_BAR_UPDATE_DELAY = 100;
 const UPDATE_PROGRESS_BAR_VALUE =
   100 / (AUTOMATIC_SCROLL_DELAY / PROGRESS_BAR_UPDATE_DELAY - 5);
@@ -178,8 +178,16 @@ function getStoryViewer() {
   storyViewNextBtn.addEventListener('click', handleStoryViewNextBtnClick);
 
   document.addEventListener('keyup', onPressEscKey);
+  window.addEventListener('resize', updateStoryViewWidth);
 
   return storyViewWrapperElem;
+}
+
+function updateStoryViewWidth() {
+  const storyViewElem = document.querySelector('.story-view');
+
+  const { height } = storyViewElem.getBoundingClientRect();
+  storyViewElem.style.width = `${height / 1.77}px`;
 }
 
 function onPressEscKey(event) {
@@ -306,4 +314,6 @@ function updateSingleStoryView(story, storyId, storyIndex) {
 
   document.querySelector('.story-view-wrapper').classList.remove('hidden');
   storyViewOpen = true;
+
+  updateStoryViewWidth();
 }

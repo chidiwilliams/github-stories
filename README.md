@@ -27,4 +27,3 @@ Google Chrome Extension that adds stories to your GitHub dashboard.
 - Single story view:
 
   - Improve the design of the view. Add colors, images, etc. (Chidi)
-  - Maintain aspect ratio of view when resizing like Instagram.
