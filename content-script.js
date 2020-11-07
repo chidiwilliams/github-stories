@@ -9,6 +9,7 @@ let automaticSliderIntervalId = null;
 const AUTOMATIC_SCROLL_DELAY = 5000;
 const PROGRESS_BAR_UPDATE_DELAY = 100;
 const UPDATE_PROGRESS_BAR_VALUE = 100 / ((AUTOMATIC_SCROLL_DELAY / PROGRESS_BAR_UPDATE_DELAY) - 5) ;
+let storyViewOpen = false;
 
 const handle = setInterval(() => {
   let dashboardCards;
@@ -17,12 +18,10 @@ const handle = setInterval(() => {
       .getElementById('dashboard')
       .querySelector('div[data-repository-hovercards-enabled]').children;
   } catch (error) {
-    if (tries++ === 10) {
-      console.log('dashboard did not load');
+    if (tries++ === 20) {
       clearInterval(handle);
       return;
     }
-    console.log('dashboard not loaded, retrying...');
     return;
   }
 
@@ -30,18 +29,20 @@ const handle = setInterval(() => {
   stories = Array.prototype.slice
     .call(dashboardCards)
     .filter((element) => element.nodeName === 'DIV')
-    .map((element) => ({
-      userImageURL: element.querySelector('.avatar.avatar-user').src,
-      userName: element.querySelector('a[data-hovercard-type="user"].text-bold')
-        .textContent,
-      action: element
-        .querySelector('div.d-flex.flex-items-baseline')
-        .textContent.split('\n')
-        .filter((str) => str.trim() !== '')
-        .map((str) => str.trim())[1],
-      repoOrUserName: element.querySelector('div.Box a.text-bold').textContent,
-      repoOrUserURL: element.querySelector('div.Box a.text-bold').href,
-    }));
+    .map((element) => {
+      const [userName, action, repoOrUserName] = element.textContent
+        .split('\n')
+        .map((str) => str.trim())
+        .filter((str) => str !== '');
+
+      return {
+        userImageURL: element.querySelector('.avatar.avatar-user').src,
+        userName,
+        action,
+        repoOrUserName,
+        repoOrUserURL: getGithubURL(repoOrUserName),
+      };
+    });
 
   const batchStories = [];
   stories.forEach((story) => {
@@ -65,7 +66,6 @@ const handle = setInterval(() => {
   const storyListView = getStoryListView({ stories: storyList });
   document.querySelector('.news').prepend(getStoryViewer());
   document.querySelector('.news').prepend(storyListView);
-
 }, 1000);
 
 function onClickStoryBtn(event) {
@@ -94,22 +94,12 @@ function getStoryListView({ stories }) {
 
     {
       const btnElem = document.createElement('button');
-      {
-        const imgElem = document.createElement('img');
-        imgElem.src = story.userImageURL;
-        imgElem.alt = story.userName;
-        imgElem.classList.add('user-story-img');
-        btnElem.appendChild(imgElem);
-      }
+      btnElem.innerHTML = `<div class="img-wrapper">
+  <img class="user-story-img" src="${story.userImageURL}" alt="${story.userName}" />
+</div>
+<div class="user-story-name f6">${story.userName}</div>`;
       btnElem.addEventListener('click', onClickStoryBtn);
       userStoryElem.appendChild(btnElem);
-    }
-
-    {
-      const userStoryNameElem = document.createElement('div');
-      userStoryNameElem.classList.add('user-story-name');
-      userStoryNameElem.innerText = story.userName;
-      userStoryElem.appendChild(userStoryNameElem);
     }
 
     storyListElement.appendChild(userStoryElem);
@@ -120,27 +110,27 @@ function getStoryListView({ stories }) {
   return storyListWrapperElem;
 }
 
-function getStoryViewer(){
+function getGithubURL(resource) {
+  return `https://github.com/${resource}`;
+}
+
+function getStoryViewer() {
   const storyViewWrapperElem = document.createElement('div');
-  storyViewWrapperElem.classList.add('story-view-wrapper');
-  storyViewWrapperElem.classList.add('hidden');
-  storyViewWrapperElem.innerHTML = `
-  <div class="story-view">
+  storyViewWrapperElem.classList.add('story-view-wrapper', 'hidden');
+  storyViewWrapperElem.innerHTML = `<div class="story-view">
   <div class="story-view-user">
-  <div class="story-view-user-detail">
-  <img
-      src="https://avatars3.githubusercontent.com/u/13041443?s=64&v=4"
-      class="story-view-user-img"
-      alt="ahkohd"
-    />
-    <a href="https://github.com/ahkohd" class="story-view-user-name"
-      >ahkohd</a
-    >
-  </div>
-  <div class="story-view-user-action">
-    x close
-  </div>
-    
+    <div class="story-view-user-detail">
+      <a class="story-view-user-img-link">
+        <img
+          src=""
+          class="story-view-user-img"
+          alt=""
+        />
+      </a>
+      <a class="story-view-user-name"
+        ></a
+      >
+    </div>
   </div>
 
   <div class = "ex-progress-bar">
@@ -150,15 +140,27 @@ function getStoryViewer(){
     <div class="story-view-content-text">
       <div class="story-view-content-action">starred</div>
       <div class="story-view-content-object">
-        <a href="https://github.com/vuejs/docs-next">vuejs/docs-next</a>
+        <a href="${getGithubURL('vuejs/docs-next')}">vuejs/docs-next</a>
       </div>
     </div>
 
     <button class="story-view-prev"><</button>
     <button class="story-view-next">></button>
+    <button class="story-view-user-action">
+      <svg
+        height="20px"
+        viewBox="0 0 329.26933 329"
+        width="20px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+        ></path>
+      </svg>
+    </button>
   </div>
-  </div>
-  `
+</div>
+`;
 
   const storyViewerCloseBtn = storyViewWrapperElem.querySelector('.story-view-user-action');
   const storyViewPrevBtn = storyViewWrapperElem.querySelector('.story-view-prev');
@@ -168,9 +170,16 @@ function getStoryViewer(){
   storyViewPrevBtn.addEventListener('click', handleStoryViewPrevBtnClick);
   storyViewNextBtn.addEventListener('click', handleStoryViewNextBtnClick);
 
-  return storyViewWrapperElem
+  document.addEventListener('keyup', onPressEscKey);
+
+  return storyViewWrapperElem;
 }
 
+function onPressEscKey(event) {
+  if (storyViewOpen && event.key === 'Escape') {
+    closeStoryView();
+  }
+}
 
 function moveSlide(story, storyID, storyIndex){
   updateSingleStoryView(story, storyID, storyIndex)
@@ -220,11 +229,15 @@ function handleStoryViewPrevBtnClick(event){
    moveToPrevSlide(storyID, storyIndex)
 }
 
+function handleCloseStoryViewerBtnClick() {
+  closeStoryView();
+}
 
-function handleCloseStoryViewerBtnClick(event){
-  document.querySelector('.story-view-wrapper').classList.add("hidden");
+function closeStoryView() {
+  document.querySelector('.story-view-wrapper').classList.add('hidden');
   clearInterval(storyViewIntervalId)
   clearInterval(progressBarIntervalId)
+  storyViewOpen = false;
 }
 
 
@@ -256,20 +269,32 @@ function updateProgressBar(){
 
 function updateSingleStoryView(story, storyId, storyIndex){
   const storyViewer = document.querySelector('.story-view-wrapper');
-  const image = storyViewer.querySelector('.story-view-user-img')
-  const name = storyViewer.querySelector('.story-view-user-name')
-  const contentAction = storyViewer.querySelector('.story-view-content-action')
-  const contentObject = storyViewer.querySelector('.story-view-content-object').firstElementChild
+
+  const imageLink = storyViewer.querySelector('.story-view-user-img-link');
+  imageLink.href = getGithubURL(story.userName);
+
+  const image = storyViewer.querySelector('.story-view-user-img');
+  image.src = story.userImageURL;
+  image.setAttribute('alt', story.userName);
+
+  const name = storyViewer.querySelector('.story-view-user-name');
+  name.href = getGithubURL(story.userName);
+  name.innerText = story.userName;
+
+  const contentAction = storyViewer.querySelector('.story-view-content-action');
+  contentAction.innerText = story.action;
+
+  const contentObject = storyViewer.querySelector('.story-view-content-object')
+    .firstElementChild;
+  contentObject.innerText = story.repoOrUserName;
+  contentObject.href = story.repoOrUserURL;
 
   storyViewer.setAttribute('story-id', storyId);
   storyViewer.setAttribute('story-index', storyIndex)
 
   image.src = story.userImageURL;
   name.innerText = story.userName;
-  name.href = "https://github.com/" + story.userName
-  contentAction.innerText = story.action;
-  contentObject.innerText = story.repoOrUserName
-  contentObject.href = story.repoOrUserURL
+  name.href = getGithubURL(story.userName);
 
   if(storyViewIntervalId)
     clearInterval(storyViewIntervalId)
@@ -278,7 +303,5 @@ function updateSingleStoryView(story, storyId, storyIndex){
   storyViewIntervalId = setInterval(automaticSlideScrolling, AUTOMATIC_SCROLL_DELAY)
 
   document.querySelector('.story-view-wrapper').classList.remove("hidden")
+  storyViewOpen = true;
 }
-
-
-

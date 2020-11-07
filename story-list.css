@@ -1,7 +1,7 @@
 .stories-list-wrapper {
-  /* display: flex; */
-  height: 90.4px;
   position: relative;
+  border-bottom: 1px solid var(--color-border-primary) !important;
+  height: 95px;
 }
 
 .stories-list {
@@ -21,10 +21,9 @@
 }
 
 .user-story {
-  margin-right: 15px;
+  margin-right: 20px;
   text-align: center;
   width: 64px;
-  /* float: left; */
 }
 
 .user-story button {
@@ -32,6 +31,15 @@
   border: 0;
   cursor: pointer;
   padding: 0;
+  width: 64px;
+}
+
+.user-story button div.img-wrapper {
+  border: solid 4px #0366d6;
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+  margin-bottom: 3px;
 }
 
 .user-story .user-story-name {
@@ -43,4 +51,5 @@
 
 img.user-story-img {
   border-radius: 50%;
+  width: 56px;
 }

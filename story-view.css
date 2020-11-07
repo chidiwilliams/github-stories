@@ -1,4 +1,4 @@
-.story-view-wrapper{
+.story-view-wrapper {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -14,7 +14,6 @@
   color: #ffffff;
   height: calc(100vh - 60px);
   padding: 40px 0 20px;
-  
 }
 
 .story-view-user {
@@ -25,15 +24,24 @@
   justify-content: space-between;
 }
 
-.story-view-user-detail{
+.story-view-user-detail {
   display: flex;
   align-items: center;
-
 }
 
-.story-view-user-action{
+button.story-view-user-action {
   cursor: pointer;
+  position: absolute;
+  right: -35px;
+  background: 0;
+  border: 0;
+  padding: 0;
 }
+
+.story-view-user-action svg {
+  fill: #ffffffdd;
+}
+
 .story-view-user-name {
   color: #ffffff;
 }
@@ -70,21 +78,20 @@ button.story-view-next {
   background: #666;
   color: #dddddd;
   border: 0;
-  border-radius: 3px;
+  border-radius: 50%;
   font-weight: bold;
   font-size: 18px;
 }
 
 button.story-view-prev {
-  left: -60px;
+  left: -45px;
 }
 
 button.story-view-next {
-  right: -60px;
+  right: -45px;
 }
 
-
-.hidden{
+.hidden {
   display: none;
 }
 
