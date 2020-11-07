@@ -177,7 +177,7 @@ function getStoryViewer() {
   storyViewPrevBtn.addEventListener('click', handleStoryViewPrevBtnClick);
   storyViewNextBtn.addEventListener('click', handleStoryViewNextBtnClick);
 
-  document.addEventListener('keyup', onPressEscKey);
+  document.addEventListener('keyup', onPressKey);
   window.addEventListener('resize', updateStoryViewWidth);
 
   return storyViewWrapperElem;
@@ -190,9 +190,19 @@ function updateStoryViewWidth() {
   storyViewElem.style.width = `${height / 1.77}px`;
 }
 
-function onPressEscKey(event) {
-  if (storyViewOpen && event.key === 'Escape') {
-    closeStoryView();
+function onPressKey(event) {
+  if (storyViewOpen) {
+    switch (event.key) {
+      case 'Escape':
+        closeStoryView();
+        break;
+      case 'ArrowLeft':
+        handleStoryViewPrevBtnClick();
+        break;
+      case 'ArrowRight':
+        handleStoryViewNextBtnClick();
+        break;
+    }
   }
 }
 
