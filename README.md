@@ -2,13 +2,11 @@
 
 View stories on your GitHub dashboard.
 
+No uploads required. Just [install](#how-to-install) and visit [github.com](https://github.com).
+
 ![GitHub Stories Demo](./github-stories.gif)
 
-## How to Use
-
-[Install the extension](#installation) and visit [github.com](https://github.com). That's all! 😊
-
-## Installation
+## How to Install
 
 1. [Download ZIP](https://github.com/chidiwilliams/github-stories/archive/master.zip) and unzip on your computer.
 
