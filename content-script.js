@@ -7,10 +7,11 @@ let progressBarIntervalId = null;
 let automaticSliderIntervalId = null;
 
 const emojis = {
-  starred: '⭐',
-  'pushed to': '🚀',
-  'started following': '🚶',
-  forked: '🤓',
+	made: "➕",
+	starred: "⭐",
+	"pushed to": "🚀",
+	"started following": "🚶",
+	forked: "🤓",
 };
 
 const AUTOMATIC_SCROLL_DELAY = 4200;
